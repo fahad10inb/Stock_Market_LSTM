@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://static.vecteezy.com/system/resources/previews/000/695/297/original/business-candle-stick-graph-chart-of-stock-market-investment-vector.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-blend-mode: darken;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Darken the background for better readability */
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15); /* Slightly increased transparency */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.03); /* Subtle hover scale effect */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #03dac6;
+            font-size: 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(3, 218, 198, 0.6);
+        }
+
+        .user-box {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .user-box input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+            transition: background 0.4s ease, box-shadow 0.3s;
+        }
+
+        .user-box input:hover,
+        .user-box input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-box label {
+            position: absolute;
+            top: 14px;
+            left: 12px;
+            color: #aaa;
+            pointer-events: none;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .user-box input:focus ~ label,
+        .user-box input:valid ~ label {
+            top: -18px;
+            left: 12px;
+            color: #03dac6;
+            font-size: 12px;
+        }
+
+        .predict-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #03dac6, #018786);
+            color: #121212;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: box-shadow 0.3s ease, transform 0.3s;
+            box-shadow: 0 5px 20px rgba(3, 218, 198, 0.4);
+        }
+
+        .predict-button:hover {
+            box-shadow: 0 5px 25px rgba(1, 135, 134, 0.7);
+            transform: translateY(-3px); /* Slight hover uplift */
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stock Market Prediction</h2>
+        <form action="/predict" method="POST" onsubmit="clearErrorMessage();">
+            <div class="user-box">
+                <input type="text" name="ticker" required>
+                <label for="ticker">Company Ticker</label>
+            </div>
+            <button type="submit" class="predict-button">Predict</button>
+        </form>
+        {% if error %}
+        <div class="error-message" id="error-message">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <script>
+        function clearErrorMessage() {
+            // Clears the error message upon form submission
+            const errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
